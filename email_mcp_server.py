@@ -17,8 +17,13 @@ import pickle
 # Default configuration
 DEFAULT_PORT = 8080
 SCOPES = ['https://www.googleapis.com/auth/gmail.send']
-TOKEN_PATH = os.path.expanduser('~/repos/mcp/.email_mcp_token.pickle')
-CREDENTIALS_PATH = os.path.expanduser('~/repos/mcp/.email_mcp_credentials.json')
+
+# Create directory for storing OAuth tokens if it doesn't exist
+CONFIG_DIR = os.path.expanduser('~/.aws/amazonq/.email_mcp')
+os.makedirs(CONFIG_DIR, exist_ok=True)
+
+TOKEN_PATH = os.path.join(CONFIG_DIR, 'token.pickle')
+CREDENTIALS_PATH = os.path.join(CONFIG_DIR, 'credentials.json')
 
 class MCPHandler(BaseHTTPRequestHandler):
     def _set_headers(self, status_code=200):

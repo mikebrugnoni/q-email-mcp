@@ -30,17 +30,25 @@ python email_mcp_server.py
 q config add-mcp-server email http://localhost:8080
 ```
 
-5. Set up OAuth credentials using Amazon Q:
+5. Set up OAuth credentials:
 
+Method 1: Copy your OAuth credentials directly to the expected location:
 ```bash
-q chat
+# Create the config directory if it doesn't exist
+mkdir -p ~/.aws/amazonq/.email_mcp
+
+# Copy your credentials file to the expected location
+cp /path/to/credentials.json ~/.aws/amazonq/.email_mcp/credentials.json
 ```
 
-Then ask Q to set up OAuth:
+Method 2: Use the HTTP API directly:
+```bash
+# Send a request to the MCP server to set up OAuth
+curl -X POST http://localhost:8080/mcp/v1/invoke -H "Content-Type: application/json" \
+  -d '{"name": "setup_oauth", "parameters": {"credentials_path": "/path/to/credentials.json"}}'
+```
 
-```
-Can you set up OAuth for my email MCP server using my credentials file at /path/to/credentials.json?
-```
+After setting up the credentials, you'll need to authenticate in your browser when prompted. The OAuth token will be stored at `~/.aws/amazonq/.email_mcp/token.pickle`.
 
 ## Usage
 
@@ -60,5 +68,5 @@ The MCP server provides two tools:
 ## Configuration
 
 - Default port: 8080 (can be changed with `--port` argument)
-- OAuth token storage: `~/repos/mcp/.email_mcp_token.pickle`
-- OAuth credentials storage: `~/repos/mcp/.email_mcp_credentials.json`
+- OAuth token storage: `~/.aws/amazonq/.email_mcp/token.pickle`
+- OAuth credentials storage: `~/.aws/amazonq/.email_mcp/credentials.json`
