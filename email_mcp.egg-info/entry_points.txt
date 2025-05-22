@@ -1,0 +1,3 @@
+[console_scripts]
+email-mcp = server:mcp.run_cli
+

@@ -1,24 +1,19 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
-    name="email-mcp-server",
+    name="email-mcp",
     version="0.1.0",
-    description="Email MCP Server for Amazon Q CLI",
-    py_modules=["email_mcp_server"],
+    packages=find_packages(),
+    install_requires=[
+        "fastmcp>=2.4.0",
+        "google-api-python-client>=2.0.0",
+        "google-auth-httplib2>=0.1.0",
+        "google-auth-oauthlib>=0.5.0",
+    ],
+    py_modules=["server"],
     entry_points={
-        'console_scripts': [
-            'email-mcp-server=email_mcp_server:run_server',
+        "console_scripts": [
+            "email-mcp=server:mcp.run_cli",
         ],
     },
-    install_requires=[
-        "google-auth-oauthlib",
-        "google-auth",
-        "google-api-python-client",
-    ],
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-    ],
-    python_requires='>=3.6',
 )

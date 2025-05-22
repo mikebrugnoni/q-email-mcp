@@ -1,9 +1,0 @@
-README.md
-email_mcp_server.py
-setup.py
-email_mcp_server.egg-info/PKG-INFO
-email_mcp_server.egg-info/SOURCES.txt
-email_mcp_server.egg-info/dependency_links.txt
-email_mcp_server.egg-info/entry_points.txt
-email_mcp_server.egg-info/requires.txt
-email_mcp_server.egg-info/top_level.txt

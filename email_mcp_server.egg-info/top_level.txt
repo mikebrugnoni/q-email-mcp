@@ -1,1 +1,0 @@
-email_mcp_server

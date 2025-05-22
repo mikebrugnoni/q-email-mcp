@@ -1,72 +1,50 @@
-# Email MCP Server for Amazon Q CLI
+# Email MCP Server
 
-This MCP (Model Context Protocol) server allows Amazon Q CLI to send emails using Gmail's OAuth 2.0 authentication.
+An MCP server for sending emails using Gmail API with OAuth 2.0 authentication.
 
-## Setup Instructions
+## Setup
 
-1. Install the required dependencies:
-
-```bash
-pip install -r requirements.txt
+1. Create a virtual environment and install the package:
+```
+cd /path/to/email_mcp
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e .
 ```
 
-2. Create OAuth 2.0 credentials in Google Cloud Console:
+2. Place your OAuth 2.0 credentials:
+   - Go to [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project
+   - Enable the Gmail API
+   - Create OAuth 2.0 credentials (Desktop application)
+   - Place your credentials file at: `~/.aws/amazonq/email-mcp/certificate.json`
+   - Alternatively, use the `setup_credentials` tool to copy your credentials file
 
-   a. Go to [Google Cloud Console](https://console.cloud.google.com/)
-   b. Create a new project or select an existing one
-   c. Enable the Gmail API for your project
-   d. Create OAuth 2.0 credentials (Desktop application type)
-   e. Download the credentials JSON file
+3. Send emails using the `send_email` tool
 
-3. Start the MCP server:
+## Usage with Amazon Q
 
-```bash
-python email_mcp_server.py
-```
-
-4. Register the MCP server with Amazon Q CLI:
-
-```bash
-q config add-mcp-server email http://localhost:8080
-```
-
-5. Set up OAuth credentials:
-
-Method 1: Copy your OAuth credentials directly to the expected location:
-```bash
-# Create the config directory if it doesn't exist
-mkdir -p ~/.aws/amazonq/.email_mcp
-
-# Copy your credentials file to the expected location
-cp /path/to/credentials.json ~/.aws/amazonq/.email_mcp/credentials.json
-```
-
-Method 2: Use the HTTP API directly:
-```bash
-# Send a request to the MCP server to set up OAuth
-curl -X POST http://localhost:8080/mcp/v1/invoke -H "Content-Type: application/json" \
-  -d '{"name": "setup_oauth", "parameters": {"credentials_path": "/path/to/credentials.json"}}'
-```
-
-After setting up the credentials, you'll need to authenticate in your browser when prompted. The OAuth token will be stored at `~/.aws/amazonq/.email_mcp/token.pickle`.
-
-## Usage
-
-Once set up, you can ask Amazon Q to send emails:
+Once installed and set up, you can use this MCP server with Amazon Q:
 
 ```
-Can you send an email to example@example.com with the subject "Hello" and body "This is a test email"?
+q chat --mcp email-mcp
 ```
 
-## Available Tools
+Then you can ask Q to send emails for you using the Gmail API.
 
-The MCP server provides two tools:
+## Tools
 
-1. `setup_oauth` - Sets up OAuth 2.0 credentials for Gmail
-2. `send_email` - Sends an email using the configured Gmail account
+### send_email
+Sends an email using Gmail API with OAuth 2.0 authentication.
 
-## Configuration
+### setup_credentials
+Copies an existing OAuth 2.0 credentials file to the default location.
 
-- Default port: 8080 (can be changed with `--port` argument)
-- OAuth token storage: `~/.aws/amazonq/.email_mcp/token.pickle`
-- OAuth credentials storage: `~/.aws/amazonq/.email_mcp/credentials.json`
+### get_credentials_status
+Checks the status of your OAuth credentials and token.
+
+## Default Paths
+
+- Credentials directory: `~/.aws/amazonq/email-mcp/`
+- Credentials file: `~/.aws/amazonq/email-mcp/certificate.json`
+- Token file: `~/.aws/amazonq/email-mcp/token.json`
