@@ -6,22 +6,29 @@ A simple tool that lets you send emails directly from Amazon Q using your Gmail 
 
 This is an MCP server that connects Amazon Q to your Gmail account, allowing you to send emails by simply asking Q to do it for you.
 
-## Setup Guide (For Beginners)
+## Prerequisites
 
-### Step 1: Install the package
+- Python 3.10 or higher
+- [uv](https://docs.astral.sh/uv/getting-started/installation/) package manager installed
+  - Follow the installation instructions at: https://docs.astral.sh/uv/getting-started/installation/
+  - After installing uv, run `uv python install` to ensure Python is properly set up with uv
 
-```bash
-# Navigate to the email_mcp directory
-cd ~/repos/mcp/email_mcp
+## Setup Guide
 
-# Create a virtual environment
-python3 -m venv .venv
+### Step 1: Add the MCP server to your mcp.json file
 
-# Activate the virtual environment
-source .venv/bin/activate
+Add the following configuration to your `~/.aws/amazonq/mcp.json` file:
 
-# Install the package
-pip install -e .
+```json
+"email-mcp": {
+  "command": "uvx",
+  "args": ["--from", "git+https://github.com/mikebrugnoni/q-email-mcp.git", "email-mcp"],
+  "env": {
+    "FASTMCP_LOG_LEVEL": "ERROR"
+  },
+  "autoApprove": [],
+  "disabled": false
+}
 ```
 
 ### Step 2: Set up OAuth credentials
@@ -46,7 +53,7 @@ Now you can ask Q to send emails for you! For example:
 Please send an email to example@example.com with the subject "Hello" and the message "This is a test email."
 ```
 
-NOTE: Your web browser will launch the first time you attempt to send an email in order to complete the Oauth authentication process.
+NOTE: Your web browser will launch the first time you attempt to send an email in order to complete the OAuth authentication process.
 
 ## Available Tools
 
@@ -63,10 +70,3 @@ Checks if your OAuth credentials are properly set up.
 
 All your credentials and tokens are stored securely in:
 - `~/.aws/amazonq/email-mcp/`
-
-## Troubleshooting
-
-If you have issues sending emails:
-1. Check your credentials status by asking Q: "Check my email credentials status"
-2. Make sure you've completed the OAuth authorization flow when prompted
-3. Verify your internet connection
