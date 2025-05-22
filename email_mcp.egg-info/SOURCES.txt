@@ -1,5 +1,6 @@
 LICENSE
 README.md
+pyproject.toml
 server.py
 setup.py
 email_mcp.egg-info/PKG-INFO

@@ -1,11 +1,11 @@
-Metadata-Version: 2.1
+Metadata-Version: 2.4
 Name: email-mcp
 Version: 0.1.0
-Summary: UNKNOWN
-Home-page: UNKNOWN
-License: UNKNOWN
-Platform: UNKNOWN
+Summary: Email MCP Application
+Requires-Python: >=3.10
 License-File: LICENSE
-
-UNKNOWN
-
+Requires-Dist: fastmcp>=2.4.0
+Requires-Dist: google-api-python-client>=2.0.0
+Requires-Dist: google-auth-httplib2>=0.1.0
+Requires-Dist: google-auth-oauthlib>=0.5.0
+Dynamic: license-file
