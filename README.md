@@ -20,14 +20,18 @@ This is an MCP server that connects Amazon Q to your Gmail account, allowing you
 Add the following configuration to your `~/.aws/amazonq/mcp.json` file:
 
 ```json
-"email-mcp": {
-  "command": "uvx",
-  "args": ["--from", "git+https://github.com/mikebrugnoni/q-email-mcp.git", "email-mcp"],
-  "env": {
-    "FASTMCP_LOG_LEVEL": "ERROR"
-  },
-  "autoApprove": [],
-  "disabled": false
+{
+  "mcpServers": {
+    "email-mcp": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/mikebrugnoni/q-email-mcp.git", "email-mcp"],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "autoApprove": [],
+      "disabled": false
+    }
+  }
 }
 ```
 
